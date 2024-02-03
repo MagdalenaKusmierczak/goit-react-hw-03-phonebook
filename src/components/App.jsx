@@ -8,6 +8,8 @@ import Filter from './Filter/Filter.jsx';
 export class App extends Component {
   state = {
     contacts: [],
+    isLoading: false,
+    error: null,
     filter: '',
   };
 
@@ -39,15 +41,34 @@ export class App extends Component {
     }));
   };
 
-  setStorage = () => {
-    return window.localStorage.setItem(
+  setStorage = async () => {
+    console.log('set');
+    return localStorage.setItem(
       'contacts',
       JSON.stringify(this.state.contacts)
     );
   };
-  getStorage = () => {
-    JSON.parse(window.localStorage.getItem('contacts'));
+  getStorage = async () => {
+    this.setState({
+      isLoading: true,
+    });
+    console.log('get');
+    const localContacts = await JSON.parse(localStorage.getItem('contacts'));
+    try {
+      if (localContacts) {
+        this.setState({ contacts: localContacts });
+      }
+    } catch (error) {
+      this.setState({
+        error,
+      });
+    } finally {
+      this.setState({
+        isLoading: false,
+      });
+    }
   };
+
   render() {
     const filtredContact = this.filteredContacts();
     return (
@@ -60,19 +81,13 @@ export class App extends Component {
       </Section>
     );
   }
-  // componentDidMount() { const response = await axios.get('/some-url');
-  //if (response.contacts==!this.state.contacts){
-  //this.setState({ contacts: response.contacts });
-  //}return ()
-  //  }
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   const oldProps = this.props;
+  componentDidMount() {
+    this.getStorage();
+  }
 
-  //   if (nextProps.someProp === oldProps.someProp) {
-  //     return false;
-  //   }
-
-  //   return true;
-  // }
-  //localStorage
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.contacts !== prevState.contacts) {
+      this.setStorage();
+    }
+  }
 }
