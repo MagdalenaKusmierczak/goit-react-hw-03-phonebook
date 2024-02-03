@@ -8,7 +8,6 @@ import Filter from './Filter/Filter.jsx';
 export class App extends Component {
   state = {
     contacts: [],
-    isLoading: false,
     error: null,
     filter: '',
   };
@@ -41,7 +40,7 @@ export class App extends Component {
     }));
   };
 
-  setStorage = async () => {
+  setStorage = () => {
     console.log('set');
     return localStorage.setItem(
       'contacts',
@@ -49,9 +48,6 @@ export class App extends Component {
     );
   };
   getStorage = async () => {
-    this.setState({
-      isLoading: true,
-    });
     console.log('get');
     const localContacts = await JSON.parse(localStorage.getItem('contacts'));
     try {

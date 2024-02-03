@@ -25,15 +25,15 @@ export default class ContactForm extends Component {
     this.props.onSubmit(contact);
   };
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   const oldProps = this.props;
+  shouldComponentUpdate(nextProps, nextState) {
+    const oldProps = this.props;
 
-  //   if (nextProps.someProp === oldProps.someProp) {
-  //     return false;
-  //   }
+    if (nextProps.someProp === oldProps.someProp) {
+      return false;
+    }
 
-  //   return true;
-  // }
+    return true;
+  }
   render() {
     return (
       <Form onSubmit={this.handleSubmit}>
