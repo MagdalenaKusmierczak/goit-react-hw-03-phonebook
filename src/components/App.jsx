@@ -58,10 +58,6 @@ export class App extends Component {
       this.setState({
         error,
       });
-    } finally {
-      this.setState({
-        isLoading: false,
-      });
     }
   };
 
