@@ -38,6 +38,16 @@ export class App extends Component {
       contacts: prevState.contacts.filter(contact => contact.id !== id),
     }));
   };
+
+  setStorage = () => {
+    return window.localStorage.setItem(
+      'contacts',
+      JSON.stringify(this.state.contacts)
+    );
+  };
+  getStorage = () => {
+    JSON.parse(window.localStorage.getItem('contacts'));
+  };
   render() {
     const filtredContact = this.filteredContacts();
     return (
@@ -50,4 +60,19 @@ export class App extends Component {
       </Section>
     );
   }
+  // componentDidMount() { const response = await axios.get('/some-url');
+  //if (response.contacts==!this.state.contacts){
+  //this.setState({ contacts: response.contacts });
+  //}return ()
+  //  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   const oldProps = this.props;
+
+  //   if (nextProps.someProp === oldProps.someProp) {
+  //     return false;
+  //   }
+
+  //   return true;
+  // }
+  //localStorage
 }
