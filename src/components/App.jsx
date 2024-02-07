@@ -78,7 +78,7 @@ export class App extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.state.contacts !== prevState.contacts) {
+    if (JSON.stringify(this.state.contacts) !== JSON.stringify(prevState.contact)) {
       this.setStorage();
     }
   }
