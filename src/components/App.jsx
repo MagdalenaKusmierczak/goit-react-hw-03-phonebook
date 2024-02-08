@@ -41,14 +41,12 @@ export class App extends Component {
   };
 
   setStorage = () => {
-    console.log('set');
     return localStorage.setItem(
       'contacts',
       JSON.stringify(this.state.contacts)
     );
   };
   getStorage = async () => {
-    console.log('get');
     const localContacts = await JSON.parse(localStorage.getItem('contacts'));
     try {
       if (localContacts) {
@@ -78,7 +76,9 @@ export class App extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (JSON.stringify(this.state.contacts) !== JSON.stringify(prevState.contact)) {
+    if (
+      JSON.stringify(this.state.contacts) !== JSON.stringify(prevState.contact)
+    ) {
       this.setStorage();
     }
   }
